@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xlkh.report.mapper.AttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.xlkh.report.pojo.Attendance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="attendance_date" property="attendanceDate" jdbcType="DATE" />
+    <result column="come_time" property="comeTime" jdbcType="VARCHAR" />
+    <result column="go_time" property="goTime" jdbcType="VARCHAR" />
+    <result column="update_come_time" property="updateComeTime" jdbcType="VARCHAR" />
+    <result column="update_go_time" property="updateGoTime" jdbcType="VARCHAR" />
+    <result column="update_reason" property="updateReason" jdbcType="INTEGER" />
+    <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, attendance_date, come_time, go_time, update_come_time, update_go_time, 
+    update_reason, audit_status, work_time, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xlkh.report.pojo.AttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attendance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attendance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xlkh.report.pojo.AttendanceExample" >
+    delete from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xlkh.report.pojo.Attendance" >
+    insert into attendance (id, user_id, attendance_date, 
+      come_time, go_time, update_come_time, 
+      update_go_time, update_reason, audit_status, 
+      work_time, create_user, create_time, 
+      update_user, update_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{attendanceDate,jdbcType=DATE}, 
+      #{comeTime,jdbcType=VARCHAR}, #{goTime,jdbcType=VARCHAR}, #{updateComeTime,jdbcType=VARCHAR}, 
+      #{updateGoTime,jdbcType=VARCHAR}, #{updateReason,jdbcType=INTEGER}, #{auditStatus,jdbcType=VARCHAR}, 
+      #{workTime,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xlkh.report.pojo.Attendance" >
+    insert into attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="attendanceDate != null" >
+        attendance_date,
+      </if>
+      <if test="comeTime != null" >
+        come_time,
+      </if>
+      <if test="goTime != null" >
+        go_time,
+      </if>
+      <if test="updateComeTime != null" >
+        update_come_time,
+      </if>
+      <if test="updateGoTime != null" >
+        update_go_time,
+      </if>
+      <if test="updateReason != null" >
+        update_reason,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceDate != null" >
+        #{attendanceDate,jdbcType=DATE},
+      </if>
+      <if test="comeTime != null" >
+        #{comeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goTime != null" >
+        #{goTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateComeTime != null" >
+        #{updateComeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateGoTime != null" >
+        #{updateGoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateReason != null" >
+        #{updateReason,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xlkh.report.pojo.AttendanceExample" resultType="java.lang.Integer" >
+    select count(*) from attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update attendance
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attendanceDate != null" >
+        attendance_date = #{record.attendanceDate,jdbcType=DATE},
+      </if>
+      <if test="record.comeTime != null" >
+        come_time = #{record.comeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goTime != null" >
+        go_time = #{record.goTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateComeTime != null" >
+        update_come_time = #{record.updateComeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateGoTime != null" >
+        update_go_time = #{record.updateGoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateReason != null" >
+        update_reason = #{record.updateReason,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditStatus != null" >
+        audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update attendance
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      attendance_date = #{record.attendanceDate,jdbcType=DATE},
+      come_time = #{record.comeTime,jdbcType=VARCHAR},
+      go_time = #{record.goTime,jdbcType=VARCHAR},
+      update_come_time = #{record.updateComeTime,jdbcType=VARCHAR},
+      update_go_time = #{record.updateGoTime,jdbcType=VARCHAR},
+      update_reason = #{record.updateReason,jdbcType=INTEGER},
+      audit_status = #{record.auditStatus,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xlkh.report.pojo.Attendance" >
+    update attendance
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceDate != null" >
+        attendance_date = #{attendanceDate,jdbcType=DATE},
+      </if>
+      <if test="comeTime != null" >
+        come_time = #{comeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goTime != null" >
+        go_time = #{goTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateComeTime != null" >
+        update_come_time = #{updateComeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateGoTime != null" >
+        update_go_time = #{updateGoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateReason != null" >
+        update_reason = #{updateReason,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xlkh.report.pojo.Attendance" >
+    update attendance
+    set user_id = #{userId,jdbcType=INTEGER},
+      attendance_date = #{attendanceDate,jdbcType=DATE},
+      come_time = #{comeTime,jdbcType=VARCHAR},
+      go_time = #{goTime,jdbcType=VARCHAR},
+      update_come_time = #{updateComeTime,jdbcType=VARCHAR},
+      update_go_time = #{updateGoTime,jdbcType=VARCHAR},
+      update_reason = #{updateReason,jdbcType=INTEGER},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

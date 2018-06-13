@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xlkh.report.mapper.SysFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.xlkh.report.pojo.SysFunction" >
+    <id column="function_id" property="functionId" jdbcType="INTEGER" />
+    <result column="function_code" property="functionCode" jdbcType="VARCHAR" />
+    <result column="function_name" property="functionName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="function_icon" property="functionIcon" jdbcType="VARCHAR" />
+    <result column="function_desc" property="functionDesc" jdbcType="VARCHAR" />
+    <result column="function_url" property="functionUrl" jdbcType="VARCHAR" />
+    <result column="function_remark" property="functionRemark" jdbcType="VARCHAR" />
+    <result column="function_type" property="functionType" jdbcType="INTEGER" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    function_id, function_code, function_name, parent_id, function_icon, function_desc, 
+    function_url, function_remark, function_type, target, sort, create_user, create_time, 
+    update_user, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xlkh.report.pojo.SysFunctionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_function
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_function
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xlkh.report.pojo.SysFunctionExample" >
+    delete from sys_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xlkh.report.pojo.SysFunction" >
+    insert into sys_function (function_id, function_code, function_name, 
+      parent_id, function_icon, function_desc, 
+      function_url, function_remark, function_type, 
+      target, sort, create_user, 
+      create_time, update_user, update_time
+      )
+    values (#{functionId,jdbcType=INTEGER}, #{functionCode,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{functionIcon,jdbcType=VARCHAR}, #{functionDesc,jdbcType=VARCHAR}, 
+      #{functionUrl,jdbcType=VARCHAR}, #{functionRemark,jdbcType=VARCHAR}, #{functionType,jdbcType=INTEGER}, 
+      #{target,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xlkh.report.pojo.SysFunction" >
+    insert into sys_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="functionId != null" >
+        function_id,
+      </if>
+      <if test="functionCode != null" >
+        function_code,
+      </if>
+      <if test="functionName != null" >
+        function_name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="functionIcon != null" >
+        function_icon,
+      </if>
+      <if test="functionDesc != null" >
+        function_desc,
+      </if>
+      <if test="functionUrl != null" >
+        function_url,
+      </if>
+      <if test="functionRemark != null" >
+        function_remark,
+      </if>
+      <if test="functionType != null" >
+        function_type,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="functionId != null" >
+        #{functionId,jdbcType=INTEGER},
+      </if>
+      <if test="functionCode != null" >
+        #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="functionIcon != null" >
+        #{functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null" >
+        #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUrl != null" >
+        #{functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="functionRemark != null" >
+        #{functionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null" >
+        #{functionType,jdbcType=INTEGER},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xlkh.report.pojo.SysFunctionExample" resultType="java.lang.Integer" >
+    select count(*) from sys_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_function
+    <set >
+      <if test="record.functionId != null" >
+        function_id = #{record.functionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.functionCode != null" >
+        function_code = #{record.functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionName != null" >
+        function_name = #{record.functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.functionIcon != null" >
+        function_icon = #{record.functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionDesc != null" >
+        function_desc = #{record.functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionUrl != null" >
+        function_url = #{record.functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionRemark != null" >
+        function_remark = #{record.functionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionType != null" >
+        function_type = #{record.functionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.target != null" >
+        target = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        update_user = #{record.updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_function
+    set function_id = #{record.functionId,jdbcType=INTEGER},
+      function_code = #{record.functionCode,jdbcType=VARCHAR},
+      function_name = #{record.functionName,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      function_icon = #{record.functionIcon,jdbcType=VARCHAR},
+      function_desc = #{record.functionDesc,jdbcType=VARCHAR},
+      function_url = #{record.functionUrl,jdbcType=VARCHAR},
+      function_remark = #{record.functionRemark,jdbcType=VARCHAR},
+      function_type = #{record.functionType,jdbcType=INTEGER},
+      target = #{record.target,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user = #{record.updateUser,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xlkh.report.pojo.SysFunction" >
+    update sys_function
+    <set >
+      <if test="functionCode != null" >
+        function_code = #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        function_name = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="functionIcon != null" >
+        function_icon = #{functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null" >
+        function_desc = #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUrl != null" >
+        function_url = #{functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="functionRemark != null" >
+        function_remark = #{functionRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null" >
+        function_type = #{functionType,jdbcType=INTEGER},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xlkh.report.pojo.SysFunction" >
+    update sys_function
+    set function_code = #{functionCode,jdbcType=VARCHAR},
+      function_name = #{functionName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      function_icon = #{functionIcon,jdbcType=VARCHAR},
+      function_desc = #{functionDesc,jdbcType=VARCHAR},
+      function_url = #{functionUrl,jdbcType=VARCHAR},
+      function_remark = #{functionRemark,jdbcType=VARCHAR},
+      function_type = #{functionType,jdbcType=INTEGER},
+      target = #{target,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+</mapper>
